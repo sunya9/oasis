@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{{title}}</title>
+</head>
+<body>
+  <header class="page-header">
+    <div class="container">
+      <div class="row row-center">
+        <div class="column column-80">
+          {{#unless user}}          
+          <h1>{{appname}}</h1>
+          {{else}}
+          <p class="appname"><a href="/">{{appname}}</a></p>
+          {{/unless}}
+        </div>
+        <div class="column column-20">
+          {{#if user}}
+          <a href="/auth/logout" class="button button-clear float-right">Logout</a>
+          {{/if}}
+        </div>
+      </div>
+    </div>
+  </header>
+  <main id="contents">
+    <div class="container">
+      {{{body}}}
+    </div>
+  </main>
+  <footer class="page-footer">
+    
+  </footer>
+  <script>
+  window.__resource__ = '{{resource}}'
+  </script>
+  <script src="/js/main.js"></script>
+</body>
+</html>

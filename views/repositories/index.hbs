@@ -1,0 +1,17 @@
+<div id="repos">
+  <h1>Repositories</h1>
+  <div class="row">
+    <div class="column column-50">
+      <input type="text" v-model="filterText" placeholder="filter">
+    </div>
+  </div>
+  <ul>
+    <li v-for="repo in filterRepos" key="repo.id">
+      <a :href="`/repositories/${repo.full_name}`">
+      \{{repo.full_name}}
+      </a></li>
+  </ul>
+</div>
+<script>
+window.__repos__ = {{{ json repos }}}
+</script>

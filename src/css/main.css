@@ -1,0 +1,19 @@
+@import 'milligram-cssnext';
+@import 'variables';
+
+[v-cloak] {
+  display: none;
+}
+
+body {
+  background-color: color(#ddb58c l(+25%));
+}
+
+.appname {
+  font-size: 200%;
+  margin-bottom: 1rem;
+}
+
+.page-header {
+  margin-bottom: 5rem;
+}
