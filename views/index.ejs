@@ -1,0 +1,8 @@
+<% if(user) { %>
+<a href="/repositories" class="button">Go repositories</a>
+<% } else { %>
+<a href="/auth/login" class="button">
+  <i class="fa fa-lg fa-github"></i>
+  Login with Github
+</a>
+<% } %>

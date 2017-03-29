@@ -8,10 +8,10 @@
   <ul>
     <li v-for="repo in filterRepos" key="repo.id">
       <a :href="`/repositories/${repo.full_name}`">
-      \{{repo.full_name}}
+      {{repo.full_name}}
       </a></li>
   </ul>
 </div>
 <script>
-window.__repos__ = {{{ json repos }}}
+window.__repos__ = <%- JSON.stringify(repos) %>
 </script>

@@ -1,0 +1,28 @@
+<div id="branches" v-cloak>
+  <a href="../"><i class="fa fa-chevron-left"></i> Repositories</a>
+  <h1>
+    <%= owner %>/<%= repo %>
+    <small>
+      <a href="https://github.com/<%= owner %>/<%= repo %>">
+        <i class="fa fa-github"></i>
+      </a>
+    </small>
+  </h1>
+  <input type="checkbox" v-model="displayAll" id="displayAll">
+  <label for="displayAll" class="label-inline">Display All</label>
+  <ul class="fa-ul">
+    <li v-for="branch in showBranches">
+      <i class="fa fa-li" :class="branch.docker.exist ? 'fa-circle-o' : 'fa-times'"></i>
+      {{branch.name}}({{branch.commit.sha}})
+      <a :href="previewURL(branch.name, branch.commit.sha)" v-show="branch.docker.exist">
+        <i class="fa fa-cloud-upload"></i>
+      </a>
+      </li>
+  </ul>
+</div>
+
+<script>
+window.__branches__ = <%- JSON.stringify(branches) %>
+window.__owner__ = '<%= owner %>'
+window.__repo__ = '<%= repo %>'
+</script>
