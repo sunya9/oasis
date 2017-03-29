@@ -1882,6 +1882,10 @@ flatten@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/flatten/-/flatten-1.0.2.tgz#dae46a9d78fbe25292258cc1e780a41d95c03782"
 
+flatten@~0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/flatten/-/flatten-0.0.1.tgz#554440766da0a0d603999f433453f6c2fc6a75c1"
+
 follow-redirects@0.0.7:
   version "0.0.7"
   resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-0.0.7.tgz#34b90bab2a911aa347571da90f22bd36ecd8a919"
@@ -2139,14 +2143,14 @@ html-entities@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/html-entities/-/html-entities-1.2.0.tgz#41948caf85ce82fed36e4e6a0ed371a6664379e2"
 
-http-assert@^1.1.0:
+http-assert@1, http-assert@^1.1.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/http-assert/-/http-assert-1.2.0.tgz#d6392e6f6519def4e340266b35096db6d3feba00"
   dependencies:
     deep-equal "~1.0.0"
     http-errors "~1.4.0"
 
-http-errors@^1.2.8, http-errors@^1.3.1:
+http-errors@^1.2.8:
   version "1.6.1"
   resolved "https://registry.yarnpkg.com/http-errors/-/http-errors-1.6.1.tgz#5f8b8ed98aca545656bf572997387f904a722257"
   dependencies:
@@ -2551,7 +2555,7 @@ koa-bodyparser@^4.2.0:
     co-body "^5.1.0"
     copy-to "^2.0.1"
 
-koa-compose@^3.0.0, koa-compose@^3.1.0:
+koa-compose@^3.0.0, koa-compose@^3.1.0, koa-compose@^3.2.1:
   version "3.2.1"
   resolved "https://registry.yarnpkg.com/koa-compose/-/koa-compose-3.2.1.tgz#a85ccb40b7d986d8e5a345b3a1ace8eabcf54de7"
   dependencies:
@@ -2589,16 +2593,6 @@ koa-passport@^3.0.0:
   dependencies:
     passport "^0.3.2"
 
-koa-router@next:
-  version "7.0.1"
-  resolved "https://registry.yarnpkg.com/koa-router/-/koa-router-7.0.1.tgz#800a61d0a3342d3d1f96d8c688b84ed2a6314d97"
-  dependencies:
-    debug "^2.2.0"
-    http-errors "^1.3.1"
-    koa-compose "^3.0.0"
-    methods "^1.0.1"
-    path-to-regexp "^1.1.1"
-
 koa-session@^5.0.0:
   version "5.0.0"
   resolved "https://registry.yarnpkg.com/koa-session/-/koa-session-5.0.0.tgz#7f1f9392df6c8a792901ecfbfaa1f88a084c6d2a"
@@ -2606,6 +2600,15 @@ koa-session@^5.0.0:
     crc "^3.4.4"
     debug "^2.2.0"
     uid-safe "^2.1.3"
+
+koa-trie-router@^2.1.2:
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/koa-trie-router/-/koa-trie-router-2.1.2.tgz#bdc494ea285b7449ab9b42f76970468ade4b3d6b"
+  dependencies:
+    flatten "^1.0.2"
+    koa-compose "^3.2.1"
+    methods "^1.1.2"
+    routington "^1.0.3"
 
 koa-webpack@^0.3.1:
   version "0.3.1"
@@ -2872,7 +2875,7 @@ meow@^3.3.0:
     redent "^1.0.0"
     trim-newlines "^1.0.0"
 
-methods@^1.0.1:
+methods@^1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/methods/-/methods-1.1.2.tgz#5529a4d67654134edcc5266656835b0f851afcee"
 
@@ -3238,6 +3241,12 @@ parse-json@^2.2.0:
   dependencies:
     error-ex "^1.2.0"
 
+parse-link-header@^0.4.1:
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/parse-link-header/-/parse-link-header-0.4.1.tgz#f6bd615dc6713fd40935ce97945e4d3f522edf14"
+  dependencies:
+    xtend "~4.0.0"
+
 parsejson@0.0.3:
   version "0.0.3"
   resolved "https://registry.yarnpkg.com/parsejson/-/parsejson-0.0.3.tgz#ab7e3759f209ece99437973f7d0f1f64ae0e64ab"
@@ -3307,12 +3316,6 @@ path-is-inside@^1.0.1:
 path-parse@^1.0.5:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/path-parse/-/path-parse-1.0.5.tgz#3c1adf871ea9cd6c9431b6ea2bd74a0ff055c4c1"
-
-path-to-regexp@^1.1.1:
-  version "1.7.0"
-  resolved "https://registry.yarnpkg.com/path-to-regexp/-/path-to-regexp-1.7.0.tgz#59fde0f435badacba103a84e9d3bc64e96b9937d"
-  dependencies:
-    isarray "0.0.1"
 
 path-type@^1.0.0:
   version "1.1.0"
@@ -4262,6 +4265,13 @@ ripemd160@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/ripemd160/-/ripemd160-1.0.1.tgz#93a4bbd4942bc574b69a8fa57c71de10ecca7d6e"
 
+routington@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/routington/-/routington-1.0.3.tgz#bd54cbf99bfa6bc9309312e38d5ea140ee0f421c"
+  dependencies:
+    flatten "~0.0.1"
+    http-assert "1"
+
 run-async@^0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/run-async/-/run-async-0.1.0.tgz#c8ad4a5e110661e402a7d21b530e009f25f8e389"
@@ -4538,9 +4548,9 @@ strip-json-comments@~2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/strip-json-comments/-/strip-json-comments-2.0.1.tgz#3c531942e908c2697c0ec344858c286c7ca0a60a"
 
-style-loader@^0.15.0:
-  version "0.15.0"
-  resolved "https://registry.yarnpkg.com/style-loader/-/style-loader-0.15.0.tgz#17ff9527ae109b94d8c53d253dc9333041438a2d"
+style-loader@^0.16.1:
+  version "0.16.1"
+  resolved "https://registry.yarnpkg.com/style-loader/-/style-loader-0.16.1.tgz#50e325258d4e78421dd9680636b41e8661595d10"
   dependencies:
     loader-utils "^1.0.2"
 
@@ -5003,7 +5013,7 @@ xmlhttprequest-ssl@1.5.3:
   version "1.5.3"
   resolved "https://registry.yarnpkg.com/xmlhttprequest-ssl/-/xmlhttprequest-ssl-1.5.3.tgz#185a888c04eca46c3e4070d99f7b49de3528992d"
 
-xtend@^4.0.0:
+xtend@^4.0.0, xtend@~4.0.0:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/xtend/-/xtend-4.0.1.tgz#a5c6d532be656e23db820efb943a1f04998d63af"
 
