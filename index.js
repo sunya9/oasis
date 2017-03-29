@@ -2,12 +2,13 @@
 const Koa = require('koa')
 const session = require('koa-session')
 const bodyparser = require('koa-bodyparser')
-const hbs = require('koa-hbs')
+const ejs = require('koa-ejs')
 const json = require('koa-json')
 
 // require other modules
 const path = require('path')
 require('dotenv').config()
+const fs = require('fs')
 
 // require user modules
 const passport = require('./lib/passport')
@@ -18,17 +19,19 @@ const debug = process.env.NODE_ENV !== 'production'
 const port = process.env.PORT || 5121
 
 const app = new Koa()
-
-app.use(bodyparser())
+app.use(bodyparser({
+  detectJSON: ctx => /\.json$/i.test(ctx.path)
+}))
 app.keys = [debug ? 'oasis' : process.env.KEY]
 app.use(session(app))
 
-hbs.registerHelper('json', JSON.stringify)
-app.use(hbs.middleware({
-  viewPath: path.join(__dirname, 'views'),
-  defaultLayout: 'layout',
-  disableCache: debug
-}))
+ejs(app, {
+  root: path.join(__dirname, 'views'),
+  layout: 'layout',
+  viewExt: 'ejs',
+  cache: !debug,
+  debug
+})
 app.use(json())
 app.use(variables)
 passport(app)
@@ -36,9 +39,19 @@ router(app)
 
 if(debug) {
   const webpackMiddleware = require('koa-webpack')
-  app.use(webpackMiddleware())
+  const DashboardPlugin = require('webpack-dashboard/plugin')
+  const webpack = require('webpack')
+  const webpackConfig = require('./webpack.config')
+  const compiler = webpack(webpackConfig)
+  compiler.apply(new DashboardPlugin())
+  app.use(webpackMiddleware({
+    compiler
+  }))
 }
 
+// create repos dir
+fs.mkdir(path.join(__dirname, 'repos'), () => null)
+
 app.listen(port, () => {
-  console.log(`listening on http://localhost:${port}`)
+  console.log(`listening on http://localhost:${port}`) // eslint-disable-line
 })
