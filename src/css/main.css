@@ -6,14 +6,40 @@
 }
 
 body {
-  background-color: color(#ddb58c l(+25%));
+  margin: 1rem 0;
+  background: 
+    radial-gradient(circle at 100% 50%, transparent 20%, var(--color-bg) 21%, var(--color-bg) 34%, transparent 35%, transparent),
+    radial-gradient(circle at 0% 50%, transparent 20%, var(--color-bg) 21%, var(--color-bg) 34%, transparent 35%, transparent) 0 -50px;
+    background-color: color(var(--color-bg) l(-2%));
+    background-size:75px 100px;
 }
 
 .appname {
   font-size: 200%;
-  margin-bottom: 1rem;
+  margin: 0 0 1rem;
+  line-height: 1.2;
+  letter-spacing: -.1rem;
+}
+
+.index {
+  & h2 {
+    margin: 10rem 0 7rem;
+  }
 }
 
 .page-header {
   margin-bottom: 5rem;
+}
+
+output {
+  padding: 0 1rem;
+  overflow: auto;
+  display: block;
+  max-height: 50vh;
+}
+
+ul {
+  & > li {
+    line-height: 1.4;
+  }
 }
