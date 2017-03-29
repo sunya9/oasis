@@ -6,7 +6,7 @@
 }
 
 body {
-  margin: 1rem 0;
+  margin: 0;
   background: 
     radial-gradient(circle at 100% 50%, transparent 20%, var(--color-bg) 21%, var(--color-bg) 34%, transparent 35%, transparent),
     radial-gradient(circle at 0% 50%, transparent 20%, var(--color-bg) 21%, var(--color-bg) 34%, transparent 35%, transparent) 0 -50px;
@@ -16,7 +16,7 @@ body {
 
 .appname {
   font-size: 200%;
-  margin: 0 0 1rem;
+  margin: 0;
   line-height: 1.2;
   letter-spacing: -.1rem;
 }
@@ -27,8 +27,22 @@ body {
   }
 }
 
+.fa-ul {
+  line-height: 1.4;
+  margin-left: 2.7rem;
+}
+
+.logout {
+  margin-bottom: 0;
+}
+
+
 .page-header {
-  margin-bottom: 5rem;
+  margin: 2rem 0 3rem;
+}
+
+.always-column {
+  flex-direction: row;
 }
 
 output {
@@ -38,8 +52,12 @@ output {
   max-height: 50vh;
 }
 
-ul {
-  & > li {
-    line-height: 1.4;
+select:focus {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="14" viewBox="0 0 29 14" width="29"><path fill="#3fbfa8" d="M9.37727 3.625l5.08154 6.93523L19.54036 3.625"/></svg>')
+}
+
+@media (min-width: 40.0rem) {
+  input[type='email'], input[type='number'], input[type='password'], input[type='search'], input[type='tel'], input[type='text'], input[type='url'], textarea, select {
+    width: auto;
   }
 }

@@ -2,13 +2,14 @@
 <html>
 <head>
   <title><%= title %></title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
 </head>
 <body>
   <header class="page-header">
     <div class="container">
-      <div class="row row-center">
+      <div class="row row-center always-column">
         <div class="column column-80">
-          <% if (!user) { %>
+          <% if (url === '/') { %>
           <h1 class="appname"><%= appname %></h1>
           <% } else { %>
           <p class="appname"><a href="/"><%= appname %></a></p>
@@ -16,7 +17,7 @@
         </div>
         <div class="column column-20">
           <% if(user) { %>
-          <a href="/auth/logout" class="float-right">Logout</a>
+          <a href="/auth/logout" class="button logout float-right">Logout</a>
           <% } %>
         </div>
       </div>
