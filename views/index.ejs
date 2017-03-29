@@ -1,8 +1,32 @@
-<% if(user) { %>
-<a href="/repositories" class="button">Go repositories</a>
-<% } else { %>
-<a href="/auth/login" class="button">
-  <i class="fa fa-lg fa-github"></i>
-  Login with Github
-</a>
-<% } %>
+<div class="index">
+  <% if(user) { %>
+  <div id="repos">
+    <h1>Repositories</h1>
+    <div class="row">
+      <div class="column column-50">
+        <input type="text" v-model="filterText" placeholder="filter">
+      </div>
+    </div>
+    <ul>
+      <li v-for="repo in filterRepos" key="repo.id">
+        <a :href="`/show?owner=${repo.owner.login}&repo=${repo.name}`">
+        {{repo.full_name}}
+        </a>
+      </li>
+    </ul>
+  </div>
+  <script>
+  window.__repos__ = <%- JSON.stringify(repos) %>
+  </script>
+  <% } else { %>
+    <% if(index) { %>
+  <h2>
+    Build preview environment easily.
+  </h2>
+    <% } %>
+  <a href="/auth/login" class="button">
+    <i class="fa fa-lg fa-github"></i>
+    Login with Github
+  </a>
+  <% } %>
+</div>
