@@ -2,12 +2,12 @@ const path = require('path')
 const { EnvironmentPlugin } = require('webpack')
 
 const config = {
-  entry: path.join(__dirname, 'src', 'js', 'main'),
+  context: path.join(__dirname, 'src'),
+  entry: './js/main',
   output: {
     path: path.join(__dirname, 'build'),
     publicPath: '/',
-    chunkFilename: '[id].js',
-    filename: 'js/main.js'
+    filename: 'js/[name].js'
   },
   module: {
     rules: [
@@ -17,16 +17,15 @@ const config = {
         use: ['babel-loader']
       }, {
         test: /\.css$/,
-        use: ['style-loader', {
-          loader: 'css-loader',
-          options: {
-            importLoaders: 1,
-            // modules: true
-          }
-        }, 'postcss-loader']
+        use: ['style-loader', 'css-loader', 'postcss-loader']
       }, {
         test: /\.(woff2?|otf|eot|svg|ttf)$/,
-        use: ['file-loader']
+        use: [{
+          loader: 'file-loader',
+          options: {
+            name: 'fonts/[name].[ext]'
+          }
+        }]
       }
     ]
   },
@@ -39,6 +38,7 @@ const config = {
     alias: {
       vue$: 'vue/dist/vue.esm.js'
     }
-  }
+  },
 }
+
 module.exports = config
