@@ -3,11 +3,12 @@
   <div id="repos">
     <h1>Repositories</h1>
     <input type="text" v-model="filterText" placeholder="filter" size="40">
-    <ul>
+    <ul class="repo-list">
       <li v-for="repo in filterRepos" key="repo.id">
         <a :href="`/show?owner=${repo.owner.login}&repo=${repo.name}`">
         {{repo.full_name}}
         </a>
+        <small :title="absolute(repo.updated_at)">Updated {{relative(repo.pushed_at)}}</small>
       </li>
       <li v-show="!end && !filterText">Loading...</li>
     </ul>

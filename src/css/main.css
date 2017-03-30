@@ -45,6 +45,14 @@ body {
   flex-direction: row;
 }
 
+.repo-list {
+  & > li {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+}
+
 output {
   padding: 0 1rem;
   overflow: auto;

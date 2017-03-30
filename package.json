@@ -21,6 +21,7 @@
     "koa-session": "^5.0.0",
     "koa-trie-router": "^2.1.2",
     "milligram-cssnext": "^1.0.1",
+    "moment": "^2.18.1",
     "parse-link-header": "^0.4.1",
     "passport-github": "^1.1.0",
     "promise-polyfill": "^6.0.2",
