@@ -3,7 +3,11 @@ const { EnvironmentPlugin } = require('webpack')
 
 const config = {
   context: path.join(__dirname, 'src'),
-  entry: './js/main',
+  entry: {
+    main: './js/main',
+    index: './js/index',
+    preview: './js/preview'
+  },
   output: {
     path: path.join(__dirname, 'build'),
     publicPath: '/',
@@ -31,7 +35,7 @@ const config = {
   },
   plugins: [
     new EnvironmentPlugin({
-      NODE_ENV: process.env.NODE_ENV
+      NODE_ENV: 'development'
     })
   ],
   resolve: {
@@ -39,6 +43,7 @@ const config = {
       vue$: 'vue/dist/vue.esm.js'
     }
   },
+  devtool: 'source-map'
 }
 
 module.exports = config

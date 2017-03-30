@@ -1,34 +1,34 @@
-<div id="branches" v-cloak>
-  <a href="../"><i class="fa fa-chevron-left"></i> Repositories</a>
-  <h1>
-    {{owner}}/{{repo}}
+<div id="index" v-cloak>
+  <h3>
+    <%= owner %>/<%= repo %>
     <small>
       <a href="https://github.com/<%= owner %>/<%= repo %>">
         <i class="fa fa-github"></i>
       </a>
     </small>
-  </h1>
-  <h2>Branches</h2>
-    <select v-model="branch">
-      <option disabled value="">Select branch...</option>
-      <option v-for="branch in branches">{{branch.name}}</option>
-    </select>
-    <div v-show="branch">
-      <h3>Commits</h3>    
-      <label for="displayAll" class="label-inline">Display All</label>
-      <input type="checkbox" v-model="displayAll" id="displayAll">
-      <ul class="fa-ul">
-        <li v-show="promise">
-          <i class="fa fa-li fa-refresh fa-spin"></i>
-          Loading...
+  </h3>
+  <h4>Branches</h4>
+  <select v-model="branch">
+    <option disabled value="">Select branch...</option>
+    <option v-for="branch in branches">{{branch.name}}</option>
+  </select>
+  <div v-show="branch">
+    <h5>Commits</h5>
+    <input type="checkbox" v-model="displayAll" id="displayAll">
+    <label for="displayAll" class="label-inline">Display All</label>
+    <ul class="fa-ul">
+      <li v-show="promise">
+        <i class="fa fa-li fa-refresh fa-spin"></i>
+        Loading...
+      </li>
+      <li v-for="commit in showCommits">
+        <i class="fa fa-li" :class="commit.docker.exist ? 'fa-circle-o' : 'fa-times'"></i>
+        {{commit.commit.message}}({{commit.sha.substr(0, 6)}})
+        <a :href="previewURL(branch, commit.sha)" v-show="commit.docker.exist">
+          <i class="fa fa-cloud-upload"></i>
+        </a>
         </li>
-        <li v-for="commit in showCommits">
-          <i class="fa fa-li" :class="commit.docker.exist ? 'fa-circle-o' : 'fa-times'"></i>
-          {{commit.commit.message}}({{commit.sha.substr(0, 6)}})
-          <a :href="previewURL(branch, commit.sha)" v-show="commit.docker.exist">
-            <i class="fa fa-cloud-upload"></i>
-          </a>
-          </li>
-      </ul>
-    </div>
+    </ul>
+  </div>
 </div>
+<script src="/js/index.js"></script>

@@ -1,12 +1,17 @@
 @import 'milligram-cssnext';
-@import 'variables';
+
+:root {
+  --color-primary: #3fbfa8;
+  --color-bg: color(#ddb58c l(+25%));
+  --color-tertiary: color(#f4f5f6 a(50%));
+}
 
 [v-cloak] {
   display: none;
 }
 
 body {
-  margin: 0;
+  margin: 5rem 0 0;
   background: 
     radial-gradient(circle at 100% 50%, transparent 20%, var(--color-bg) 21%, var(--color-bg) 34%, transparent 35%, transparent),
     radial-gradient(circle at 0% 50%, transparent 20%, var(--color-bg) 21%, var(--color-bg) 34%, transparent 35%, transparent) 0 -50px;
@@ -14,50 +19,20 @@ body {
     background-size:75px 100px;
 }
 
-.appname {
-  font-size: 200%;
-  margin: 0;
-  line-height: 1.2;
-  letter-spacing: -.1rem;
-}
-
-.index {
-  & h2 {
-    margin: 10rem 0 7rem;
-  }
-}
-
 .fa-ul {
   line-height: 1.4;
   margin-left: 2.7rem;
 }
 
-.logout {
-  margin-bottom: 0;
-}
-
-
-.page-header {
-  margin: 2rem 0 3rem;
-}
-
-.always-column {
-  flex-direction: row;
-}
-
-.repo-list {
-  & > li {
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
-  }
+main {
+  margin-top: 3rem;
 }
 
 output {
   padding: 0 1rem;
   overflow: auto;
   display: block;
-  max-height: 50vh;
+  max-height: 60vh;
 }
 
 select:focus {
