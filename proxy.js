@@ -1,8 +1,6 @@
 const httpProxy = require('http-proxy')
-const { name } = require('./package')
 const Koa = require('koa')
 const Docker = require('./lib/docker')
-const qs = require('querystring')
 
 const table = {
 
