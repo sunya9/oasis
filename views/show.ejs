@@ -25,7 +25,7 @@
         <li v-for="commit in showCommits">
           <i class="fa fa-li" :class="commit.docker.exist ? 'fa-circle-o' : 'fa-times'"></i>
           {{commit.commit.message}}({{commit.sha.substr(0, 6)}})
-          <a :href="previewURL(branch.name, commit.sha)" v-show="commit.docker.exist">
+          <a :href="previewURL(branch, commit.sha)" v-show="commit.docker.exist">
             <i class="fa fa-cloud-upload"></i>
           </a>
           </li>
