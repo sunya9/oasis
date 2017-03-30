@@ -1,54 +1,62 @@
-// require koa and its modules
-const session = require('koa-session')
-const bodyparser = require('koa-bodyparser')
-const ejs = require('koa-ejs')
-const json = require('koa-json')
+const httpProxy = require('http-proxy')
+const Koa = require('koa')
+const Docker = require('./lib/docker')
+require('dotenv').config()
 
-// require other modules
-const path = require('path')
-const fs = require('fs')
-
-// require user modules
-const passport = require('./lib/passport')
-const router = require('./lib/router')
-const variables = require('./lib/middlewares/variables')
-
-const debug = process.env.NODE_ENV !== 'production'
-
-module.exports = app => {
-  app.use(bodyparser({
-    detectJSON: ctx => /\.json$/i.test(ctx.path)
-  }))
-  app.keys = [debug ? 'oasis' : process.env.KEY]
-  app.use(session(app))
-
-  ejs(app, {
-    root: path.join(__dirname, 'views'),
-    layout: 'layout',
-    viewExt: 'ejs',
-    cache: !debug,
-    debug
-  })
-  app.use(json())
-  app.use(variables)
-  passport(app)
-  router(app)
-
-  if(debug) {
-    const webpackMiddleware = require('koa-webpack')
-    const DashboardPlugin = require('webpack-dashboard/plugin')
-    const webpack = require('webpack')
-    const webpackConfig = require('./webpack.config')
-    const compiler = webpack(webpackConfig)
-    compiler.apply(new DashboardPlugin())
-    app.use(webpackMiddleware({
-      compiler
-    }))
-  }
-
-  // create repos dir
-  fs.mkdir(path.join(__dirname, 'repos'), () => null)
-
-
+const table = {
 
 }
+
+const debug = process.env.NODE_ENV !== 'production'
+const port = process.env.PORT || 5121
+
+const app = new Koa()
+const server = require('./server')
+const proxy = httpProxy.createProxyServer()
+
+app.use(async (ctx, next) => {
+  const { headers: { host }, req, res } = ctx
+  const xipio = /\.xip\.io$/.test(host)
+  const vhost = host.replace(/\.?127\.0\.0\.1\.xip\.io$/, '')
+  if(xipio && debug && vhost) {
+    const [owner, repo, branch, commitId] = vhost.split('.')
+    const docker = new Docker({
+      owner, repo, branch, commitId
+    })
+    const exist = await docker.existContainer()
+    if(!exist) {
+      // redirect to preview url
+      // ctx.redirect('')
+    } else {
+      if(!table[vhost]) {
+        const inspect = await docker.container.inspect()
+        const { NetworkSettings: { Ports }} = inspect
+        // TODO: ensure requiring port
+        const port = Object.keys(Ports).map(port => {
+          // const [number] = port.split('/')
+          return Ports[port][0].HostPort
+        })[0]
+        table[vhost] = port
+      }
+      const port = table[vhost]
+      const target = `http://localhost:${port}`
+      req.headers.host = target
+      await new Promise((resolve, reject) => {
+        proxy.web(req, res, {
+          target
+        }, e => {
+          if(e) reject(e)
+          resolve()
+        })
+      })
+    }
+  } else {
+    await next()
+  }
+})
+
+server(app)
+
+app.listen(port, () => {
+  console.log(`listening on http://localhost:${port}`) // eslint-disable-line
+})
