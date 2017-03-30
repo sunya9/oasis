@@ -58,17 +58,3 @@ app.use(async ctx => {
 })
 
 app.listen(80)
-
-
-
-// const proxy = httpProxy.createProxyServer({
-//   target: 'http://localhost:5121/'
-// })
-// const proxy = httpProxy.createProxy()
-
-
-// proxy.on('proxyReq', async (preq, req, res) => {
-
-// })
-
-// proxy.listen(80)
