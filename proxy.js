@@ -1,20 +1,20 @@
 const httpProxy = require('http-proxy')
 const Koa = require('koa')
 const Docker = require('./lib/docker')
+require('dotenv').config()
 
 const table = {
 
 }
 
-const proxy = httpProxy.createProxyServer()
-
-require('./')
-
 const debug = process.env.NODE_ENV !== 'production'
+const port = process.env.PORT || 5121
 
 const app = new Koa()
+const server = require('./')
+const proxy = httpProxy.createProxyServer()
 
-app.use(async ctx => {
+app.use(async (ctx, next) => {
   const { headers: { host }, req, res } = ctx
   const xipio = /\.xip\.io$/.test(host)
   const vhost = host.replace(/\.?127\.0\.0\.1\.xip\.io$/, '')
@@ -26,6 +26,7 @@ app.use(async ctx => {
     const exist = await docker.existContainer()
     if(!exist) {
       // redirect to preview url
+      // ctx.redirect('')
     } else {
       if(!table[vhost]) {
         const inspect = await docker.container.inspect()
@@ -49,12 +50,12 @@ app.use(async ctx => {
       })
     }
   } else {
-    await new Promise((resolve, reject) => {
-      proxy.web(req, res, {
-        target: 'http://localhost:5121/'
-      }, e => e ? reject(e) : resolve())
-    })
+    await next()
   }
 })
 
-app.listen(80)
+server(app)
+
+app.listen(port, () => {
+  console.log(`listening on http://localhost:${port}`) // eslint-disable-line
+})
