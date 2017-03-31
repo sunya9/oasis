@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import qs from 'querystring'
 
+const debug = process.env.NODE_ENV !== 'production'
+
 new Vue({
   el: '#preview',
   data: {
@@ -45,10 +47,10 @@ new Vue({
           this.scroll()
           const lines = text.split('\n')
           const url = lines[lines.length - 1]
-          if(url.startsWith('http')) {
+          if(url.startsWith('http') && !debug) {
             setTimeout(() => location.href = url, 2000)
           } else {
-            // error
+            // error or development mode
           }
           return
         }
