@@ -34,7 +34,8 @@ new Vue({
     },
     json(res) {
       return res.json().then(({ url }) => {
-        location.href = url
+        if(!debug)
+          location.href = url
       })
     },
     octet(res) {
