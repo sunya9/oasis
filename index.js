@@ -9,6 +9,7 @@ fs.mkdir(path.join(__dirname, 'repos'), () => null)
 
 const port = process.env.PORT || 5121
 
-app.listen(port, () => {
-  console.log(`listening on http://localhost:${port}`) // eslint-disable-line
+module.exports = app.listen(port, () => {
+  if(!module.parent)
+    console.log(`listening on http://localhost:${port}`) // eslint-disable-line
 })
