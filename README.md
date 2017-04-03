@@ -31,7 +31,7 @@ OASIS_PORT=3000
 
 #### `.oasis.env` environment variables
 
-* `OASIS_PORT`: Published main port that your server 
+* `OASIS_PORT`: Published main port that your contaienr
 
 ## Development
 * Node.js >= 7.7
