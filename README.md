@@ -1,5 +1,7 @@
 # oasis
 
+[![Build Status](https://travis-ci.org/sunya9/oasis.svg?branch=master)](https://travis-ci.org/sunya9/oasis)
+
 WIP.
 
 This project was inspired by [mookjp/pool](https://github.com/mookjp/pool).
