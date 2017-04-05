@@ -1,5 +1,6 @@
 const path = require('path')
 const { EnvironmentPlugin } = require('webpack')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 const config = {
   context: path.join(__dirname, 'src'),
@@ -21,7 +22,9 @@ const config = {
         use: ['babel-loader']
       }, {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader', 'postcss-loader']
+        use: ExtractTextPlugin.extract({
+          use: ['css-loader', 'postcss-loader']
+        })
       }, {
         test: /\.(woff2?|otf|eot|svg|ttf)$/,
         use: [{
@@ -36,7 +39,8 @@ const config = {
   plugins: [
     new EnvironmentPlugin({
       NODE_ENV: 'development'
-    })
+    }),
+    new ExtractTextPlugin('css/main.css')
   ],
   resolve: {
     alias: {
