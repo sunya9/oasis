@@ -3,7 +3,6 @@ const supertest = require('supertest')
 require('dotenv').config('../.env')
 
 process.env.PORT = 5121
-
 let app, request
 
 describe('server', () => {
@@ -21,7 +20,7 @@ describe('server', () => {
         .get('/')
         .expect('Content-Type', /^text\/html/)
         .expect(200)
-        .end(() => done())
+        .end(done)
     })
   })
 
@@ -31,8 +30,24 @@ describe('server', () => {
         .get('/preview')
         .expect('Content-Type', /^text\/html/)
         .expect(200)
-        .end(() => done())
+        .end(done)
     })
+  })
+
+  describe('assets', () => {
+    it('receive js', done => {
+      request
+        .get('/js/main.js')
+        .expect('Content-Type', /^application\/javascript/)
+        .expect(200)
+        .end(done)
+    })
+    // it('receive css', done => {
+    //   request
+    //     .get('/css/main.css')
+    //     .expect(200)
+    //     .end(done)
+    // })
   })
 
   describe('proxy middleware', () => {

@@ -58,9 +58,9 @@
     "start": "node .",
     "dev": "webpack-dashboard -- node-dev --respawn .",
     "proxy": "node-dev --respawn .",
-    "test": "cross-env NODE_ENV=production mocha",
+    "test": "npm run build && cross-env NODE_ENV=production mocha",
     "test:lint": "eslint *.js ./**/*.js",
-    "build": "cross-env NODE_ENV=production webpack -p"
+    "build": "cross-env NODE_ENV=production webpack -p --progress"
   },
   "pre-commit": [
     "test:lint"
