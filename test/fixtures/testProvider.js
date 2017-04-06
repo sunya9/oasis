@@ -7,13 +7,23 @@ class TestProvider {
     this.getCommits = this.getCommits.bind(this)
   }
 
-  getCommits(branch) {
-    return branch ? commits : []
+  getCommits() {
+    if(!TestProvider.internalError) {
+      return commits
+    } else {
+      throw new Error('Occur error')
+    }
   }
 
   getBranches() {
-    return branches
+    if(!TestProvider.internalError) {
+      return branches
+    } else {
+      throw new Error('Occur error')
+    }
   }
 }
+
+TestProvider.internalError = false
 
 module.exports = TestProvider

@@ -1,5 +1,10 @@
 const supertest = require('supertest')
 require('dotenv').config('../.env')
+require('should')
+
+const ApiDelegate = require('../lib/apiDelegate')
+const testProvider = require('./fixtures/testProvider')
+Object.assign(ApiDelegate.PROVIDERS, { test: testProvider })
 
 process.env.PORT = 5123
 process.env.PROVIDER = 'test'
@@ -15,12 +20,16 @@ describe('server', () => {
   })
 
   describe('/', () => {
-    it('Show', done => {
-      request
+    let req
+    beforeEach(() => {
+      req = request
         .get('/')
         .expect('Content-Type', /^text\/html/)
         .expect(200)
-        .end(done)
+
+    })
+    it('Show', done => {
+      req.end(done)
     })
   })
 
@@ -35,6 +44,7 @@ describe('server', () => {
   })
 
   describe('assets', () => {
+    after(() => testProvider.internalError = false)
     it('receive main.js', done => {
       request
         .get('/js/main.js')
@@ -68,54 +78,66 @@ describe('server', () => {
     })
   })
 
-  describe('API', () => {
-    before(() => {
-      const ApiDelegate = require('../lib/apiDelegate')
-      const testProvider = require('./fixtures/testProvider')
-      Object.assign(ApiDelegate.PROVIDERS, { test: testProvider })
-    })
-    it('/branches is correct json', done => {
-      request
+  describe('/branches', () => {
+    after(() => testProvider.internalError = false)
+    let req
+    beforeEach(() => {
+      req = request
         .get('/branches')
         .expect('Content-Type', /^application\/json/)
+    })
+    it('is correct json', done => {
+      req
         .expect(200)
         .end((err, { body: branches }) => {
           if(err) done(err)
           branches.length.should.equal(4)
+          const haveNames = branches.every(branch => !!branch.name)
+          haveNames.should.equal(true)
           done()
         })
     })
-    describe('/commits', () => {
-      it('is correct json', done => {
-        request
-          .get('/commits?branch=master')
-          .expect('Content-Type', /^application\/json/)
-          .expect(200)
-          .end((err, { body: commits }) => {
-            if(err) done(err)
-            commits.length.should.equal(4)
-            const haveShaAndMsg = commits.every(commit => {
-              return commit.sha
-                && commit.commit.message
-                && commit.docker
-                && 'exist' in commit.docker
-                && commit.docker.url
-            })
-            haveShaAndMsg.should.equal(true)
-            done()
+    it('is empty json if occur any errors', done => {
+      testProvider.internalError = true
+      req
+        .expect(500)
+        .end((err, { body: branches }) => {
+          if(err) done(err)
+          branches.length.should.equal(0)
+          done()
+        })
+    })
+  })
+  describe('/commits', () => {
+    it('is correct json', done => {
+      request
+        .get('/commits?branch=master')
+        .expect('Content-Type', /^application\/json/)
+        .expect(200)
+        .end((err, { body: commits }) => {
+          if(err) done(err)
+          commits.length.should.equal(4)
+          const haveShaAndMsg = commits.every(commit => {
+            return commit.sha
+              && commit.commit.message
+              && commit.docker
+              && 'exist' in commit.docker
+              && commit.docker.url
           })
-      })
-      it('is empty json if occur any errors', done => {
-        request
-          .get('/commits')
-          .expect('Content-Type', /^application\/json/)
-          .expect(200)
-          .end((err, { body: commits }) => {
-            if(err) done(err)
-            commits.length.should.equal(0)
-            done()
-          })
-      })
+          haveShaAndMsg.should.equal(true)
+          done()
+        })
+    })
+    it('is empty json if occur any errors', done => {
+      request
+        .get('/commits')
+        .expect('Content-Type', /^application\/json/)
+        .expect(500)
+        .end((err, { body: commits }) => {
+          if(err) done(err)
+          commits.length.should.equal(0)
+          done()
+        })
     })
   })
 
