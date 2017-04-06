@@ -42,9 +42,7 @@ new Vue({
       this.commits = []
       const query = qs.parse(location.search.substr(1))
       query.branch = this.branch
-      this.promise = fetch(`/commits?branch=${this.branch}`, {
-        credentials: 'include'
-      })
+      this.promise = fetch(`/commits?branch=${this.branch}`)
         .then(res => res.json())
         .then(res => {
           this.commits = res

@@ -17,8 +17,7 @@ new Vue({
     fetch(location.pathname, {
       method: 'POST',
       headers,
-      body: JSON.stringify(body),
-      credentials: 'include'
+      body: JSON.stringify(body)
     }).then(res => {
       const ct = res.headers.get('content-type')
       if(ct && ct.indexOf('application/json') !== -1) {
