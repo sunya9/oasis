@@ -60,6 +60,7 @@
     "dev": "webpack-dashboard -- node-dev --respawn .",
     "proxy": "node-dev --respawn .",
     "test": "npm run build && cross-env NODE_ENV=production mocha",
+    "test:watch": "npm test -- --watch",
     "test:lint": "eslint *.js ./**/*.js",
     "build": "cross-env NODE_ENV=production webpack -p --progress"
   },
