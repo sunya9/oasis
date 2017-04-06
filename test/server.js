@@ -79,15 +79,11 @@ describe('server', () => {
   })
 
   describe('/branches', () => {
-    after(() => testProvider.internalError = false)
-    let req
-    beforeEach(() => {
-      req = request
+    it('is correct json', done => {
+      testProvider.internalError = false
+      request
         .get('/branches')
         .expect('Content-Type', /^application\/json/)
-    })
-    it('is correct json', done => {
-      req
         .expect(200)
         .end((err, { body: branches }) => {
           if(err) done(err)
@@ -99,7 +95,9 @@ describe('server', () => {
     })
     it('is empty json if occur any errors', done => {
       testProvider.internalError = true
-      req
+      request
+        .get('/branches')
+        .expect('Content-Type', /^application\/json/)
         .expect(500)
         .end((err, { body: branches }) => {
           if(err) done(err)
@@ -110,6 +108,7 @@ describe('server', () => {
   })
   describe('/commits', () => {
     it('is correct json', done => {
+      testProvider.internalError = false
       request
         .get('/commits?branch=master')
         .expect('Content-Type', /^application\/json/)
@@ -129,6 +128,7 @@ describe('server', () => {
         })
     })
     it('is empty json if occur any errors', done => {
+      testProvider.internalError = true
       request
         .get('/commits')
         .expect('Content-Type', /^application\/json/)
