@@ -35,19 +35,37 @@ describe('server', () => {
   })
 
   describe('assets', () => {
-    it('receive js', done => {
+    it('receive main js', done => {
       request
         .get('/js/main.js')
         .expect('Content-Type', /^application\/javascript/)
         .expect(200)
         .end(done)
     })
-    // it('receive css', done => {
-    //   request
-    //     .get('/css/main.css')
-    //     .expect(200)
-    //     .end(done)
-    // })
+
+    it('receive preview js', done => {
+      request
+        .get('/js/preview.js')
+        .expect('Content-Type', /^application\/javascript/)
+        .expect(200)
+        .end(done)
+    })
+
+    it('receive index js', done => {
+      request
+        .get('/js/index.js')
+        .expect('Content-Type', /^application\/javascript/)
+        .expect(200)
+        .end(done)
+    })
+
+    it('receive css', done => {
+      request
+        .get('/css/main.css')
+        .expect('Content-Type', /^text\/css/)
+        .expect(200)
+        .end(done)
+    })
   })
 
   describe('proxy middleware', () => {
