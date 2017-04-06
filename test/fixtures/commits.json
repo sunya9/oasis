@@ -1,0 +1,39 @@
+[
+  {
+    "sha": "commit 1",
+    "commit": {
+      "message": "commit message 1"
+    },
+    "docker": {
+      "exist": true,
+      "url": "https://example.com/Dockerfile"
+    }
+  }, {
+    "sha": "commit 2",
+    "commit": {
+      "message": "commit message 2"
+    },
+    "docker": {
+      "exist": true,
+      "url": "https://example.com/Dockerfile"
+    }
+  }, {
+    "sha": "commit 3",
+    "commit": {
+      "message": "commit message 3"
+    },
+    "docker": {
+      "exist": true,
+      "url": "https://example.com/Dockerfile"
+    }
+  }, {
+    "sha": "commit 4",
+    "commit": {
+      "message": "commit message 4"
+    },
+    "docker": {
+      "exist": true,
+      "url": "https://example.com/Dockerfile"
+    }
+  }
+]

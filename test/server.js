@@ -1,8 +1,8 @@
 const supertest = require('supertest')
-// const should = require('should')
 require('dotenv').config('../.env')
 
-process.env.PORT = 5121
+process.env.PORT = 5123
+process.env.PROVIDER = 'test'
 let app, request
 
 describe('server', () => {
@@ -13,7 +13,7 @@ describe('server', () => {
   after(() => {
     app.close()
   })
-  
+
   describe('/', () => {
     it('Show', done => {
       request
@@ -35,7 +35,7 @@ describe('server', () => {
   })
 
   describe('assets', () => {
-    it('receive main js', done => {
+    it('receive main.js', done => {
       request
         .get('/js/main.js')
         .expect('Content-Type', /^application\/javascript/)
@@ -43,7 +43,7 @@ describe('server', () => {
         .end(done)
     })
 
-    it('receive preview js', done => {
+    it('receive preview.js', done => {
       request
         .get('/js/preview.js')
         .expect('Content-Type', /^application\/javascript/)
@@ -51,7 +51,7 @@ describe('server', () => {
         .end(done)
     })
 
-    it('receive index js', done => {
+    it('receive index.js', done => {
       request
         .get('/js/index.js')
         .expect('Content-Type', /^application\/javascript/)
@@ -59,7 +59,7 @@ describe('server', () => {
         .end(done)
     })
 
-    it('receive css', done => {
+    it('receive main.css', done => {
       request
         .get('/css/main.css')
         .expect('Content-Type', /^text\/css/)
@@ -68,17 +68,68 @@ describe('server', () => {
     })
   })
 
+  describe('API', () => {
+    before(() => {
+      const ApiDelegate = require('../lib/apiDelegate')
+      const testProvider = require('./fixtures/testProvider')
+      Object.assign(ApiDelegate.PROVIDERS, { test: testProvider })
+    })
+    it('/branches is correct json', done => {
+      request
+        .get('/branches')
+        .expect('Content-Type', /^application\/json/)
+        .expect(200)
+        .end((err, { body: branches }) => {
+          if(err) done(err)
+          branches.length.should.equal(4)
+          done()
+        })
+    })
+    describe('/commits', () => {
+      it('is correct json', done => {
+        request
+          .get('/commits?branch=master')
+          .expect('Content-Type', /^application\/json/)
+          .expect(200)
+          .end((err, { body: commits }) => {
+            if(err) done(err)
+            commits.length.should.equal(4)
+            const haveShaAndMsg = commits.every(commit => {
+              return commit.sha
+                && commit.commit.message
+                && commit.docker
+                && 'exist' in commit.docker
+                && commit.docker.url
+            })
+            haveShaAndMsg.should.equal(true)
+            done()
+          })
+      })
+      it('is empty json if occur any errors', done => {
+        request
+          .get('/commits')
+          .expect('Content-Type', /^application\/json/)
+          .expect(200)
+          .end((err, { body: commits }) => {
+            if(err) done(err)
+            commits.length.should.equal(0)
+            done()
+          })
+      })
+    })
+  })
+
   describe('proxy middleware', () => {
     it('Redirect preview page when container does not exist', done => {
       request
         .get('/')
-        .set('Host', 'john-doe.repo.master.123456.127.0.0.1.xip.io:5121')
+        .set('Host', 'john-doe.repo.master.123456.127.0.0.1.xip.io:5123')
         .end((err, res) => {
           if(err) {
             done(err)
           } else {
             const { headers: { location }} = res
-            if(location !== 'http://localhost:5121/preview?branch=master&commit_id=123456') {
+            if(location !== 'http://localhost:5123/preview?branch=master&commit_id=123456') {
               done(new Error('Mismatch redirect URL'))
             } else {
               done()
