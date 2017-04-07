@@ -21,7 +21,7 @@ This project was inspired by [mookjp/pool](https://github.com/mookjp/pool).
 * `PROVIDER`: git hosting sevice
   * `github`
 * `REPO`: target preview repository(`<owner>/<repository>`).
-* `TOKEN`: require token for private repository.
+* `PROVIDER_TOKEN`: require token for private repository.
 
 ## Optional
 
