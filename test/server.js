@@ -1,13 +1,11 @@
 const supertest = require('supertest')
-require('dotenv').config('../.env')
+require('dotenv').config('.env')
 require('should')
 
 const ApiDelegate = require('../lib/apiDelegate')
 const testProvider = require('./fixtures/testProvider')
 Object.assign(ApiDelegate.PROVIDERS, { test: testProvider })
 
-process.env.PORT = 5123
-process.env.PROVIDER = 'test'
 let app, request
 
 describe('server', () => {
@@ -26,10 +24,15 @@ describe('server', () => {
         .get('/')
         .expect('Content-Type', /^text\/html/)
         .expect(200)
-
     })
-    it('Show', done => {
-      req.end(done)
+    it('Show and correct title', done => {
+      req.end((err, { text }) => {
+        if(err) done(err)
+        const { fullRepo } = new ApiDelegate()
+        const regexp = new RegExp(`<title>oasis::${fullRepo}</title>`, 'i')
+        regexp.test(text).should.be.ok()
+        done()
+      })
     })
   })
 

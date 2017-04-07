@@ -38,5 +38,6 @@ jspm_packages
 
 #other
 .env
+!test/.env
 build
 repos
