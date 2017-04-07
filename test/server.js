@@ -1,7 +1,13 @@
 const supertest = require('supertest')
-require('dotenv').config('.env')
+const path = require('path')
 require('should')
 
+require('dotenv').config({
+  path: path.join(__dirname, '.env')
+})
+
+
+// Add test provider
 const ApiDelegate = require('../lib/apiDelegate')
 const testProvider = require('./fixtures/testProvider')
 Object.assign(ApiDelegate.PROVIDERS, { test: testProvider })
@@ -9,8 +15,8 @@ Object.assign(ApiDelegate.PROVIDERS, { test: testProvider })
 let app, request
 
 describe('server', () => {
-  before(() => {
-    app = require('../')
+  before(done => {
+    app = require('../').listen(process.env.PORT, done)
     request = supertest(app)
   })
   after(() => {
