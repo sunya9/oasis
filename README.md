@@ -6,7 +6,7 @@ WIP.
 
 This project was inspired by [mookjp/pool](https://github.com/mookjp/pool).
 
-## Requirement
+## Requirements
 
 * Docker
 * Git repository that have Dockerfile at project root.
