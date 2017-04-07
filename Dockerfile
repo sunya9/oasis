@@ -14,6 +14,6 @@ COPY . /usr/src/app
 # Build
 RUN npm run build
 
-EXPOSE 80
+EXPOSE 5121
 ENV NODE_ENV=production
 CMD ["npm", "start"]
