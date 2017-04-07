@@ -18,7 +18,9 @@ This project was inspired by [mookjp/pool](https://github.com/mookjp/pool).
 ### Environment variables
 
 * `PORT`: oasis port(default: 5121).
-* `GITHUB`: target preview repository(`<owner>/<repository>`).
+* `PROVIDER`: git hosting sevice
+  * `github`
+* `REPO`: target preview repository(`<owner>/<repository>`).
 * `TOKEN`: require token for private repository.
 
 ## Optional
