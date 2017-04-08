@@ -23,9 +23,7 @@ new Vue({
     }
   },
   mounted() {
-    fetch('/branches', {
-      credentials: 'include'
-    })
+    fetch('/branches')
       .then(res => res.json())
       .then(res => {
         this.branches = res
@@ -35,8 +33,8 @@ new Vue({
       })
   },
   methods: {
-    previewURL(name, id) {
-      return `/preview?branch=${name}&commit_id=${id.substr(0, 6)}`
+    previewURL(id) {
+      return `${location.protocol}//${id.substr(0, 7)}.${location.host}`
     },
     getCommits() {
       this.commits = []

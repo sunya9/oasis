@@ -42,13 +42,19 @@ describe('server', () => {
     })
   })
 
-  describe('/preview', () => {
-    it('Show', done => {
+  describe('preview', () => {
+    it('Show preview page when container does not exist', done => {
       request
         .get('/preview')
+        .set('Host', '1234567.127.0.0.1.xip.io:5123')
         .expect('Content-Type', /^text\/html/)
         .expect(200)
-        .end(done)
+        .end((err, { text }) => {
+          if(err) done(err)
+          const regexp = /foo\/bar:1234567/
+          regexp.test(text).should.be.true()
+          done()
+        })
     })
   })
 
@@ -149,26 +155,5 @@ describe('server', () => {
         })
     })
   })
-
-  describe('proxy middleware', () => {
-    it('Redirect preview page when container does not exist', done => {
-      request
-        .get('/')
-        .set('Host', 'john-doe.repo.master.123456.127.0.0.1.xip.io:5123')
-        .end((err, res) => {
-          if(err) {
-            done(err)
-          } else {
-            const { headers: { location }} = res
-            if(location !== 'http://localhost:5123/preview?branch=master&commit_id=123456') {
-              done(new Error('Mismatch redirect URL'))
-            } else {
-              done()
-            }
-          }
-        })
-    })
-  })
-
 })
 

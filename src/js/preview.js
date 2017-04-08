@@ -48,7 +48,7 @@ new Vue({
           const lines = text.split('\n')
           const url = lines[lines.length - 1]
           if(url.startsWith('http') && !debug) {
-            setTimeout(() => location.href = url, 2000)
+            location.reload(true)
           } else {
             // error or development mode
           }

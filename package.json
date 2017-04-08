@@ -21,6 +21,8 @@
     "milligram-cssnext": "^1.0.1",
     "promise-polyfill": "^6.0.2",
     "recursive-readdir": "^2.1.1",
+    "request": "^2.81.0",
+    "request-promise-native": "^1.0.3",
     "rimraf": "^2.6.1",
     "simple-git": "^1.67.0",
     "strip-ansi": "^3.0.1",
