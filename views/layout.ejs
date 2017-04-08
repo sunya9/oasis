@@ -3,12 +3,16 @@
 <head>
   <title>oasis::<%= owner %>/<%= repo %></title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="<%= host %>/css/main.css">
 </head>
 <body>
   <header class="page-header">
     <div class="container">
+      <% if(host) { %>
+      <h1><a href="<%= host %>">oasis</a></h1>
+      <% } else { %>
       <h1>oasis</h1>
+      <% } %>
       <h2>
         <small>Build preview environment rapidly.</small>
       </h2>
@@ -19,6 +23,6 @@
       <%- body %>
     </div>
   </main>
-  <script src="/js/main.js"></script>
+  <script src="<%= host %>/js/main.js"></script>
 </body>
 </html>
