@@ -11,31 +11,21 @@ This project was inspired by [mookjp/pool](https://github.com/mookjp/pool).
 * Docker
 * Git repository that have Dockerfile at project root.
 
-## Usage
+## Usage[WIP]
 
-* `docker run -e GITHUB=<owner>/<repository> -d -p 5121:5121 sunya9/oasis`
+* `docker run -e PROVIDER_TOKEN=<YOUR_TOKEN> -e REPO=<owner>/<repository> -e TARGET_PORT=5121 -d -p 5121:5121 sunya/oasis`
 
 ### Environment variables
 
-* `PORT`: oasis port(default: 5121).
-* `PROVIDER`: git hosting sevice
+\* required.
+
+* `PORT`: oasis port.
+* `HOST`*: Your server domain.
+* `PROVIDER`*: Git hosting services. choose one among the below:
   * `github`
-* `REPO`: target preview repository(`<owner>/<repository>`).
-* `PROVIDER_TOKEN`: require token for private repository.
-
-## Optional
-
-* Putting `.oasis.env`  to root of target repository, it is able to determine oasis behavior.
-
-### `.oasis.env` example
-
-```
-OASIS_PORT=3000
-```
-
-#### `.oasis.env` environment variables
-
-* `OASIS_PORT`: Published main port that your contaienr
+* `REPO`*: target preview repository(`<owner>/<repository>`).
+* `PROVIDER_TOKEN`: Require token if you preview private repository.
+* `TARGET_PORT`(WIP): Your project's port. oasis predicts port number from inspect command. Rrequire this variables if you use Docker Compose.
 
 ## Development
 * Node.js >= 7.7
