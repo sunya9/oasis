@@ -13,7 +13,9 @@ This project was inspired by [mookjp/pool](https://github.com/mookjp/pool).
 
 ## Usage[WIP]
 
-* `docker run -e PROVIDER_TOKEN=<YOUR_TOKEN> -e REPO=<owner>/<repository> -e TARGET_PORT=5121 -d -p 5121:5121 sunya/oasis`
+```sh
+$ docker run -e PROVIDER_TOKEN=<YOUR_TOKEN> -e REPO=<owner>/<repository> -e TARGET_PORT=3000 -d -p 5121:5121 sunya/oasis
+```
 
 ### Environment variables
 
