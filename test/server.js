@@ -46,7 +46,7 @@ describe('server', () => {
     it('Show preview page when container does not exist', done => {
       request
         .get('/preview')
-        .set('Host', '1234567.127.0.0.1.xip.io:5123')
+        .set('Host', '1234567.localhost:5123')
         .expect('Content-Type', /^text\/html/)
         .expect(200)
         .end((err, { text }) => {
