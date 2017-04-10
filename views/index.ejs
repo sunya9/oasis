@@ -8,8 +8,8 @@
     </small>
   </h3>
   <h4>Branches</h4>
-  <select v-model="branch">
-    <option disabled value="">Select branch...</option>
+  <select v-model="branch" :disabled="!branches.length">
+    <option disabled value="" v-if="!branches.length">Loading...</option>
     <option v-for="branch in branches">{{branch.name}}</option>
   </select>
   <div v-show="branch">
@@ -27,7 +27,10 @@
         <a :href="previewURL(commit.sha)" v-show="commit.docker.exist">
           <i class="fa fa-cloud-upload"></i>
         </a>
-        </li>
+        <a :href="`/rebuild?id=${commit.sha.substr(0, 7)}`">
+          <i class="fa fa-recycle"></i>
+        </a>
+      </li>
     </ul>
   </div>
 </div>

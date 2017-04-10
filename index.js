@@ -3,10 +3,10 @@ const path = require('path')
 require('dotenv').config()
 
 if(!process.env.PORT)
-  process.env.PORT = 80
+  process.env.PORT = 5121
 
 if(!process.env.HOST)
-  process.env.HOST = '127.0.0.1.xip.io'
+  process.env.HOST = 'localhost'
 
 const app = require('./lib/app')
 

@@ -1,5 +1,4 @@
 import Vue from 'vue'
-import qs from 'querystring'
 
 const debug = process.env.NODE_ENV !== 'production'
 
@@ -11,20 +10,14 @@ new Vue({
   },
   mounted() {
     this.outputEl = this.$el.querySelector('output')
-    const body = qs.parse(location.search.substr(1))
     const headers = new Headers()
     headers.append('Content-Type', 'application/json')
-    fetch(location.pathname, {
+    fetch('/', {
       method: 'POST',
-      headers,
-      body: JSON.stringify(body)
+      headers
     }).then(res => {
       const ct = res.headers.get('content-type')
-      if(ct && ct.indexOf('application/json') !== -1) {
-        return this.json(res)
-      } else {
-        return this.octet(res)
-      }
+      return this.octet(res)
     })
   },
   methods: {
@@ -45,12 +38,12 @@ new Vue({
       const processResult = result => {
         if(result.done) {
           this.scroll()
-          const lines = text.split('\n')
-          const url = lines[lines.length - 1]
-          if(url.startsWith('http') && !debug) {
+          if(!debug) {
             location.reload(true)
           } else {
-            // error or development mode
+            // development mode
+            this.output += '\nYou are development mode! You can see built pages if reload.'
+            this.$nextTick(this.scroll)
           }
           return
         }
