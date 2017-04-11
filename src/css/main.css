@@ -24,6 +24,15 @@ body {
   margin-left: 2.7rem;
 }
 
+.text-center {
+  text-align: center;
+}
+
+.logo {
+  display: block;
+  margin: auto;
+}
+
 main {
   margin-top: 3rem;
 }
