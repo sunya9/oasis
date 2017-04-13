@@ -15,10 +15,7 @@ new Vue({
     fetch('/', {
       method: 'POST',
       headers
-    }).then(res => {
-      const ct = res.headers.get('content-type')
-      return this.octet(res)
-    })
+    }).then(this.octet)
   },
   methods: {
     scroll() {
@@ -34,7 +31,6 @@ new Vue({
       this.output = ''
       const reader = res.body.getReader()
       const decoder = new TextDecoder('utf-8')
-      let text
       const processResult = result => {
         if(result.done) {
           this.scroll()
@@ -42,15 +38,21 @@ new Vue({
             location.reload(true)
           } else {
             // development mode
-            this.output += '\nYou are development mode! You can see built pages if reload.'
+            this.output += '\n<a href="">You are development mode! You can see built pages if reload.</a>'
             this.$nextTick(this.scroll)
           }
           return
         }
-        text = decoder.decode(result.value)
-        this.output += text
+        const jsons = decoder.decode(result.value).trim().split('\n')
+        let lastRes
+        jsons.map(json => {
+          lastRes = JSON.parse(json)
+          this.output += lastRes.body
+        })
         this.$nextTick(this.scroll)
-        reader.read().then(processResult)
+        if(lastRes && lastRes.status) {
+          reader.read().then(processResult)
+        }
       }
       reader.read().then(processResult)
     }

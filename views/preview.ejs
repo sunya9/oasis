@@ -1,5 +1,5 @@
 <div id="preview">
-  <h3><%= owner %>/<%= repo %>:<%= id %></h3>
-  <pre><output>{{output}}</output></pre>
+  <h2><%= owner %>/<%= repo %>:<%= id %></h2>
+  <pre><output v-html="output"></output></pre>
 </div>
 <script src="<%= host %>/js/preview.js"></script>
