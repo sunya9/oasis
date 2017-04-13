@@ -25,14 +25,6 @@ const config = {
         use: ExtractTextPlugin.extract({
           use: ['css-loader', 'postcss-loader']
         })
-      }, {
-        test: /\.(woff2?|otf|eot|svg|ttf)$/,
-        use: [{
-          loader: 'file-loader',
-          options: {
-            name: 'fonts/[name].[ext]'
-          }
-        }]
       }
     ]
   },
