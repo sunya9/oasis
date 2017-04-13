@@ -1,3 +1,6 @@
+<div style="text-align: center">
+<img src="https://github.com/sunya9/oasis/wiki/oasis.png" alt="oasis" width="128" height="128">
+</div>
 # oasis
 
 [![Build Status](https://travis-ci.org/sunya9/oasis.svg?branch=master)](https://travis-ci.org/sunya9/oasis)
