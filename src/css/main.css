@@ -29,7 +29,7 @@ body {
     height: 100%;
     position: absolute;
     background-color: var(--color-primary);
-    left: -1.5rem;
+    left: calc(-1.5rem - 1px);
   }
   & > li {
     position: relative;
@@ -46,9 +46,9 @@ body {
     }
     & svg {
       fill: var(--color-primary);
-      width: 24px;
-      height: 24px;
-      vertical-align: middle;
+      width: 2ex;
+      height: 2ex;
+      vertical-align: baseline;
     }
   }
 }
