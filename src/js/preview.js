@@ -44,10 +44,15 @@ new Vue({
           return
         }
         const jsons = decoder.decode(result.value).trim().split('\n')
+
         let lastRes
         jsons.map(json => {
-          lastRes = JSON.parse(json)
-          this.output += lastRes.body
+          try {
+            lastRes = JSON.parse(json)
+            this.output += lastRes.body
+          } catch(e) {
+
+          }
         })
         this.$nextTick(this.scroll)
         if(lastRes && lastRes.status) {
