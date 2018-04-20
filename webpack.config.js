@@ -10,7 +10,7 @@ const config = {
     preview: './js/preview'
   },
   output: {
-    path: path.join(__dirname, 'build'),
+    path: path.join(__dirname, 'build', 'client'),
     publicPath: '/',
     filename: 'js/[name].js'
   },
@@ -20,7 +20,8 @@ const config = {
         test: /\.js$/,
         exclude: /node_modules/,
         use: ['babel-loader']
-      }, {
+      },
+      {
         test: /\.css$/,
         use: ExtractTextPlugin.extract({
           use: ['css-loader', 'postcss-loader']
@@ -41,7 +42,7 @@ const config = {
   }
 }
 
-if(process.env.NODE_ENV !== 'production') {
+if (process.env.NODE_ENV !== 'production') {
   config.devtool = 'source-map'
 }
 
