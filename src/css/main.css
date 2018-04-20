@@ -1,7 +1,8 @@
 @import 'milligram-cssnext';
 
 :root {
-  --color-primary: #3fbfa8;
+  --color-primary: #00a587;
+  --color-secondary: #fff;
   --color-bg: color(#ddb58c l(+25%));
   --color-tertiary: color(#f4f5f6 a(50%));
 }
@@ -10,13 +11,17 @@
   display: none;
 }
 
+html,
 body {
-  margin: 5rem 0 0;
-  background:
-    radial-gradient(circle at 100% 50%, transparent 20%, var(--color-bg) 21%, var(--color-bg) 34%, transparent 35%, transparent),
-    radial-gradient(circle at 0% 50%, transparent 20%, var(--color-bg) 21%, var(--color-bg) 34%, transparent 35%, transparent) 0 -50px;
-    background-color: color(var(--color-bg) l(-2%));
-    background-size:75px 100px;
+  min-height: 100%;
+}
+
+body {
+  box-sizing: border-box;
+  padding: 5rem 0 0;
+  background: #19547b;
+  background: linear-gradient(to bottom, #19547b, #19547b);
+  background-size: 100%;
 }
 
 .commit-list {
@@ -41,7 +46,7 @@ body {
       display: block;
       border-radius: 50%;
       left: -2rem;
-      top: calc(50% - .5rem);
+      top: calc(50% - 0.5rem);
       background-color: var(--color-primary);
     }
     & svg {
@@ -81,11 +86,26 @@ output {
 }
 
 select:focus {
-  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="14" viewBox="0 0 29 14" width="29"><path fill="#3fbfa8" d="M9.37727 3.625l5.08154 6.93523L19.54036 3.625"/></svg>')
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="14" viewBox="0 0 29 14" width="29"><path fill="#3fbfa8" d="M9.37727 3.625l5.08154 6.93523L19.54036 3.625"/></svg>');
 }
 
-@media (min-width: 40.0rem) {
-  input[type='email'], input[type='number'], input[type='password'], input[type='search'], input[type='tel'], input[type='text'], input[type='url'], textarea, select {
+@media (min-width: 40rem) {
+  input[type='email'],
+  input[type='number'],
+  input[type='password'],
+  input[type='search'],
+  input[type='tel'],
+  input[type='text'],
+  input[type='url'],
+  textarea,
+  select {
     width: auto;
+  }
+  select {
+    color: var(--color-secondary);
+  }
+  ,
+  option {
+    color: #000;
   }
 }
