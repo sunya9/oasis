@@ -27,7 +27,7 @@
         Loading...
       </li>
       <li v-for="commit in showCommits">
-        {{commit.commit.message}}({{commit.sha.substr(0, 7)}})
+        {{commit.message}}({{commit.sha.substr(0, 7)}})
         <a :href="previewURL(commit.sha)" title="Preview">
           <svg
             xmlns="http://www.w3.org/2000/svg"

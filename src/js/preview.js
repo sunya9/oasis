@@ -23,8 +23,7 @@ new Vue({
     },
     json(res) {
       return res.json().then(({ url }) => {
-        if(!debug)
-          location.href = url
+        if (!debug) location.href = url
       })
     },
     octet(res) {
@@ -32,30 +31,32 @@ new Vue({
       const reader = res.body.getReader()
       const decoder = new TextDecoder('utf-8')
       const processResult = result => {
-        if(result.done) {
+        if (result.done) {
           this.scroll()
-          if(!debug) {
+          if (!debug) {
             location.reload(true)
           } else {
             // development mode
-            this.output += '\n<a href="">You are development mode! You can see built pages if reload.</a>'
+            this.output +=
+              '\n<a href="">You are development mode! You can see built pages if reload.</a>'
             this.$nextTick(this.scroll)
           }
           return
         }
-        const jsons = decoder.decode(result.value).trim().split('\n')
+        const jsons = decoder
+          .decode(result.value)
+          .trim()
+          .split('\n')
 
         let lastRes
         jsons.map(json => {
           try {
             lastRes = JSON.parse(json)
-            this.output += lastRes.body
-          } catch(e) {
-
-          }
+            this.output += lastRes.message
+          } catch (e) {}
         })
         this.$nextTick(this.scroll)
-        if(lastRes && lastRes.status) {
+        if (lastRes && !lastRes.complete) {
           reader.read().then(processResult)
         }
       }
