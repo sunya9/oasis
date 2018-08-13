@@ -4,7 +4,7 @@
 
 # oasis
 
-[![Build Status](https://travis-ci.org/sunya9/oasis.svg?branch=master)](https://travis-ci.org/sunya9/oasis)
+[![Build Status](https://travis-ci.org/sunya9/oasis.svg?branch=master)](https://travis-ci.org/sunya9/oasis) [![Greenkeeper badge](https://badges.greenkeeper.io/sunya9/oasis.svg)](https://greenkeeper.io/)
 
 WIP.
 
