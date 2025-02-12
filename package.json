@@ -14,7 +14,7 @@
     "dotenv": "^6.0.0",
     "fs-extra": "^7.0.0",
     "http-proxy": "^1.16.2",
-    "koa": "^2.2.0",
+    "koa": "^2.15.4",
     "koa-bodyparser": "^4.2.0",
     "koa-ejs": "^4.0.0",
     "koa-json": "^2.0.2",
@@ -24,11 +24,11 @@
     "milligram-cssnext": "^1.0.1",
     "promise-polyfill": "^8.1.0",
     "recursive-readdir": "^2.2.2",
-    "request": "^2.81.0",
+    "request": "^2.88.2",
     "request-promise-native": "^1.0.3",
-    "simple-git": "^1.67.0",
+    "simple-git": "^3.16.0",
     "through": "^2.3.8",
-    "vue": "^2.2.4",
+    "vue": "^3.0.0",
     "whatwg-fetch": "^2.0.3"
   },
   "devDependencies": {
